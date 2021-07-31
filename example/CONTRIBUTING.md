@@ -2,7 +2,6 @@
 
 ## Setup your development environment
 
-{% if package_manager == 'Esy' -%}
 You need Esy, you can install the latest version from [npm](https://npmjs.com):
 
 ```bash
@@ -18,62 +17,27 @@ esy
 ```
 
 This project uses [Dune](https://dune.build/) as a build system, if you add a dependency in your `package.json` file, don't forget to add it to your `dune` and `dune-project` files too.
-{%- else -%}
-You need Opam, you can install it by following [Opam's documentation](https://opam.ocaml.org/doc/Install.html).
-
-With Opam installed, you can install the dependencies in a new local switch with:
-
-```bash
-make switch
-```
-
-Or globally, with:
-
-```bash
-make deps
-```
-
-Then, build the project with:
-
-```bash
-make build
-```
-{%- endif %}
 
 ### Running Binary
 
 After building the project, you can run the main binary that is produced.
 
-{% if package_manager == 'Esy' -%}
 ```bash
 esy start
 ```
-{%- else %}
-```bash
-make start
-```
-{%- endif %}
 
 ### Running Tests
 
 You can run the test compiled executable:
 
-{% if package_manager == 'Esy' -%}
-
 ```bash
 esy test
 ```
-{%- else %}
-```bash
-make test
-```
-{%- endif %}
 
 ### Building documentation
 
 Documentation for the libraries in the project can be generated with:
 
-{% if package_manager == 'Esy' -%}
 ```bash
 esy doc
 open-cli $(esy doc-path)
@@ -82,31 +46,21 @@ open-cli $(esy doc-path)
 This assumes you have a command like [open-cli](https://github.com/sindresorhus/open-cli) installed on your system.
 
 > NOTE: On macOS, you can use the system command `open`, for instance `open $(esy doc-path)`
-{%- else %}
-```bash
-make doc
-open-cli $(make doc-path)
-```
-
-This assumes you have a command like [open-cli](https://github.com/sindresorhus/open-cli) installed on your system.
-
-> NOTE: On macOS, you can use the system command `open`, for instance `open $(make doc-path)`
-{%- endif %}
 
 ### Repository Structure
 
-The following snippet describes {{ project_name }}'s repository structure.
+The following snippet describes Demo's repository structure.
 
 ```text
 .
 ├── bin/
-|   Source for {{ project_slug }}'s binary. This links to the library defined in `lib/`.
+|   Source for demo's binary. This links to the library defined in `lib/`.
 │
 ├── lib/
-|   Source for {{ project_name }}'s library. Contains {{ project_name }}'s core functionnalities.
+|   Source for Demo's library. Contains Demo's core functionnalities.
 │
 ├── test/
-|   Unit tests and integration tests for {{ project_name }}.
+|   Unit tests and integration tests for Demo.
 │
 ├── dune-project
 |   Dune file used to mark the root of the project and define project-wide parameters.
@@ -114,18 +68,13 @@ The following snippet describes {{ project_name }}'s repository structure.
 │
 ├── LICENSE
 │
-{%- if package_manager == 'Esy' %}
 ├── esy.json
 |   Esy package definition.
 |   To know more about creating Esy packages, see https://esy.sh/docs/en/configuration.html.
-{%- else %}
-├── Makefile
-|   Make file containing common development command.
-{%- endif %}
 │
 ├── README.md
 │
-└── {{ project_slug }}.opam
+└── demo.opam
     Opam package definition.
     To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
 ```

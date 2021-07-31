@@ -1,10 +1,10 @@
 {
-  "name": "{{ project_slug }}",
+  "name": "demo",
   "esy": {
     "build": "dune build -p #{self.name}",
     "buildDev": "dune build --root . --only-package #{self.name}",
     "buildEnv": {
-      "ODOC_SYNTAX": "{% if syntax == 'Reason' %}re{% else %}ml{% endif %}"
+      "ODOC_SYNTAX": "re"
     }
   },
   "dependencies": {
@@ -12,18 +12,11 @@
     "@opam/cmdliner": "*",
     "@opam/logs": "*",
     "@opam/fmt": "*",
-    {%- if syntax == 'Reason' %}
     "@opam/reason": "*",
-    {%- endif %}
     "ocaml": ">= 4.8.0"
   },
   "devDependencies": {
-    {% if test_framework == 'Alcotest' -%}
     "@opam/alcotest": "*",
-    {% endif -%}
-    {% if syntax == 'OCaml' -%}
-    "@opam/ocamlformat": "*",
-    {% endif -%}
     "@opam/odoc": "*",
     "@opam/utop": "*",
     "@opam/ocaml-lsp-server": "*",
